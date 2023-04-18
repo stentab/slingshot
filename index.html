@@ -31,7 +31,8 @@
 			vy: 0,
 			rotation: 0,
 			acceleration: 0.1,
-			maxVelocity: 5
+			maxVelocity: 5,
+			size: 10
 		};
 
 		// Array of star objects with x, y, and radius properties
@@ -69,6 +70,14 @@
 			ctx.fill();
 			ctx.restore();
 		}
+
+		function drawCoordinates() {
+			// Draw spaceship coordinates
+			ctx.fillStyle = "white";
+			ctx.font = "16px Arial";
+			ctx.fillText(`Spaceship: (${Math.round(spaceship.x)}, ${Math.round(spaceship.y)})`, 10, 20);
+
+		}
 		
 		// Update spaceship position and velocity based on rotation and acceleration
 		function updateSpaceship() {
@@ -86,7 +95,19 @@
 			// Update position based on velocity
 			spaceship.x += spaceship.vx;
 			spaceship.y += spaceship.vy;
+			// Wrap around screen if spaceship goes beyond borders
+			if (spaceship.x < -spaceship.size) {
+				spaceship.x = canvas.width + spaceship.size;
+			} else if (spaceship.x > canvas.width + spaceship.size) {
+				spaceship.x = -spaceship.size;
+			}
+			if (spaceship.y < -spaceship.size) {
+				spaceship.y = canvas.height + spaceship.size;
+			} else if (spaceship.y > canvas.height + spaceship.size) {
+				spaceship.y = -spaceship.size;
+			}
 		}
+
 		
 		// Handle arrow key and up key presses to rotate and propel spaceship
 		function handleKeyDown(event) {
@@ -112,6 +133,7 @@
 			updateSpaceship();
 			drawSpaceship();
 			drawStars();
+			drawCoordinates();
 			requestAnimationFrame(gameLoop);
 		}
 		
