@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Slingshot Game</title>
+	<style>
+		body {
+			background-color: black;
+			margin: 0;
+			padding: 0;
+		}
+		canvas {
+			display: block;
+			margin: 0 auto;
+		}
+	</style>
+</head>
+<body>
+	<canvas id="myCanvas"></canvas>
+	<script>
+		const canvas = document.getElementById('myCanvas');
+		const ctx = canvas.getContext('2d');
+		
+		canvas.width = window.innerWidth;
+		canvas.height = window.innerHeight;
+		
+		// Draw stars on the canvas
+		function drawStars() {
+			ctx.fillStyle = 'white';
+			for (let i = 0; i < 200; i++) {
+				const x = Math.random() * canvas.width;
+				const y = Math.random() * canvas.height;
+				ctx.fillRect(x, y, 1, 1);
+			}
+		}
+		
+		drawStars();
+	</script>
+</body>
+</html>
