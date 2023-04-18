@@ -32,7 +32,8 @@
 			rotation: 0,
 			acceleration: 0.1,
 			maxVelocity: 5,
-			size: 10
+			size: 10,
+			engineOn: false
 		};
 
 		// Array of star objects with x, y, and radius properties
@@ -60,14 +61,26 @@
 			ctx.save();
 			ctx.translate(spaceship.x, spaceship.y);
 			ctx.rotate(spaceship.rotation);
-			ctx.fillStyle = 'white';
+			ctx.fillStyle = 'red';
 			ctx.beginPath();
-			ctx.moveTo(0, -10);
-			ctx.lineTo(5, 5);
+			ctx.moveTo(0, -20);
+			ctx.lineTo(10, 5);
 			ctx.lineTo(0, 2);
-			ctx.lineTo(-5, 5);
+			ctx.lineTo(-10, 5);
 			ctx.closePath();
 			ctx.fill();
+
+			// Draw fire behind spaceship when engine is on
+			if (spaceship.engineOn) {
+				ctx.fillStyle = 'yellow';
+				ctx.beginPath();
+				ctx.moveTo(0, spaceship.size / 2 + 5);
+				ctx.lineTo(-spaceship.size / 2, spaceship.size + Math.random() * 10);
+				ctx.lineTo(spaceship.size / 2, spaceship.size + Math.random() * 10);
+				ctx.closePath();
+				ctx.fill();
+			}
+
 			ctx.restore();
 		}
 
