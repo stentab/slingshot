@@ -54,7 +54,8 @@
 		for (let i = 0; i < 5; i++) {
 				const radius = 20 + Math.random() * 60;
 				//const color = `hsl(${Math.random() * 360}, 70%, 50%)`; // Generate random bright colors
-				const color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+				//const color = `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`;
+				const color = 'blue';
     
 				planets.push({
 						x: Math.random() * canvas.width,
@@ -111,7 +112,7 @@
     for (let planet of planets) {
         // Draw gravity field
         ctx.strokeStyle = `rgba(0, 255, 255, ${planet.gravity / 200})`; // Adjust the opacity based on the gravity strength
-				ctx.fillStyle = `rgba(0, 255, 255, ${planet.gravity / 300})`;
+				ctx.fillStyle = `rgba(0, 255, 255, ${planet.gravity / 1000})`;
         ctx.lineWidth = 2;
         const gravityRadius = planet.radius + Math.sqrt(planet.gravity) * 10; // Ensure the gravity field is always bigger than the planet size
         ctx.beginPath();
@@ -146,20 +147,6 @@
 					ctx.beginPath();
 					ctx.arc(0, 0, fuelStation.fuel * 0.5, 0, 2 * Math.PI);
 					ctx.fill();
-
-					// Draw docking arms
-					ctx.strokeStyle = 'pink';
-					ctx.lineWidth = 6;
-					for (let angle = 0; angle < 2 * Math.PI; angle += Math.PI / 4) {
-							const startX = fuelStation.fuel * 0.5 * Math.cos(angle);
-							const startY = fuelStation.fuel * 0.5 * Math.sin(angle);
-							const endX = (fuelStation.fuel * 0.5 + 5) * Math.cos(angle);
-							const endY = (fuelStation.fuel * 0.5 + 5) * Math.sin(angle);
-							ctx.beginPath();
-							ctx.moveTo(startX, startY);
-							ctx.lineTo(endX, endY);
-							ctx.stroke();
-					}
 
 					ctx.restore();
 			}
