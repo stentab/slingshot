@@ -68,10 +68,13 @@
 
 		const fuelStations = [];
 		for (let i = 0; i < 5; i++) {
+				const fuel = 10 + Math.random() * 40;
 				fuelStations.push({
 						x: Math.random() * canvas.width,
 						y: Math.random() * canvas.height,
-						fuel: 10 + Math.random() * 40
+						height: fuel,
+						width: fuel/2,
+						fuel
 				});
 		}
 
@@ -138,17 +141,26 @@
 		}
 
 		function drawFuelStations() {
-			for (let fuelStation of fuelStations) {
-					ctx.save();
-					ctx.translate(fuelStation.x, fuelStation.y);
-
-					// Draw central core
-					ctx.fillStyle = 'pink';
+			ctx.lineWidth = 2;
+			for (let station of fuelStations) {
+					// Draw can body
+					ctx.fillStyle = 'cyan';
 					ctx.beginPath();
-					ctx.arc(0, 0, fuelStation.fuel * 0.5, 0, 2 * Math.PI);
+					ctx.rect(station.x - station.width / 2, station.y - station.height / 2, station.width, station.height);
 					ctx.fill();
+					ctx.stroke();
 
-					ctx.restore();
+					// Draw can top
+					ctx.beginPath();
+					ctx.arc(station.x, station.y - station.height / 2, station.width / 2, Math.PI, 2 * Math.PI);
+					ctx.fill();
+					ctx.stroke();
+
+					// Draw can bottom
+					ctx.beginPath();
+					ctx.arc(station.x, station.y + station.height / 2, station.width / 2, 0, Math.PI);
+					ctx.fill();
+					ctx.stroke();
 			}
 	}
 
